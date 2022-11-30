@@ -1,0 +1,10 @@
+requests
+percache
+beautifulsoup4
+
+types-requests
+mypy
+rich
+black
+pylint
+isort
