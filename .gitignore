@@ -1,4 +1,5 @@
 .env
+.cache.db
 .mypy_cache
 __pycache__
 venv
