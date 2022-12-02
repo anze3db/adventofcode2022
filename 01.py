@@ -12,7 +12,7 @@ for i in inp:
         continue
     s += int(i)
 res = max(elves)
-# submit(day=1, level=1, answer=res)
+submit(day=1, level=1, answer=res)
 
 res = sum(sorted(elves)[-3:])
-# submit(day=1, level=2, answer=res)
+submit(day=1, level=2, answer=res)
