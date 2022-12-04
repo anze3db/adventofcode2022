@@ -44,7 +44,7 @@ C Z""".splitlines()
     )
     == 15
 )
-console.log(part1(get_input(2)))
+console.log(part1(get_input(2022, 2)))
 # submit(day=2, level=1, answer=part1(get_input(2)))
 
 assert (
@@ -55,5 +55,5 @@ C Z""".splitlines()
     )
     == 12
 )
-console.log(part2(get_input(2)))
+console.log(part2(get_input(2022, 2)))
 # submit(day=2, level=2, answer=part2(get_input(2)))

@@ -1,5 +1,3 @@
-from collections import Counter
-
 from utils import console, get_input, submit
 
 cnt = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -38,8 +36,8 @@ CrZsJsPPZsGzwwsLwLmpwMDw""".splitlines()
     )
     == 157
 )
-console.log(part1(get_input(3)))
-submit(day=3, level=1, answer=part1(get_input(3)))
+console.log(part1(get_input(2022, 3)))
+submit(year=2022, day=3, level=1, answer=part1(get_input(2022, 3)))
 
 assert (
     part2(
@@ -52,5 +50,5 @@ CrZsJsPPZsGzwwsLwLmpwMDw""".splitlines()
     )
     == 70
 )
-console.log(part2(get_input(3)))
-submit(day=3, level=2, answer=part2(get_input(3)))
+console.log(part2(get_input(2022, 3)))
+submit(year=2022, day=3, level=2, answer=part2(get_input(2022, 3)))

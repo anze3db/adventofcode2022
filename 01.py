@@ -1,6 +1,6 @@
 from utils import console, get_input, submit
 
-inp = get_input(1)
+inp = get_input(2022, 1)
 console.log(inp)
 
 s = 0
@@ -12,7 +12,7 @@ for i in inp:
         continue
     s += int(i)
 res = max(elves)
-submit(day=1, level=1, answer=res)
+submit(year=2022, day=1, level=1, answer=res)
 
 res = sum(sorted(elves)[-3:])
-submit(day=1, level=2, answer=res)
+submit(year=2022, day=1, level=2, answer=res)
