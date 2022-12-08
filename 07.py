@@ -8,12 +8,6 @@ aoc = AoC(day=int(Path(__file__).stem))
 aoc.print_p1()
 
 
-# def __init__(self, name, parent, contents):
-#     self.name = name
-#     self.parent = parent
-#     self.contents = contents
-
-
 @dataclass
 class File:
     name: str
@@ -38,60 +32,56 @@ class Dir:
         return self.sum_files
 
     def __str__(self):
-        return f"Dir({self.name=})"
+        return f"Dir({self.name=}, {self.sum_files=})"
 
     def __repr__(self) -> str:
         return self.__str__()
 
 
-class Disk:
-    def __init__(self, inp):
-        self.inp = inp
+def run_commands(inp):
+    root = current_path = Dir("/", None)
+    root.parent = root
+    dirs = [root]
 
-    def run_commands(self):
-        root = current_path = Dir("/", None)
-        root.parent = root
-        dirs = [root]
+    for i, cmd in enumerate(inp):
+        if cmd[0] != "$":
+            continue
+        cmd, *arg = cmd.replace("$ ", "").split(" ")
+        match cmd, arg:
+            case ("cd", [".."]):
+                current_path = current_path.parent
+            case ("cd", ["/"]):
+                current_path = root
+            case ("cd", [dr]):
+                current_path = next(d for d in current_path.dirs if d.name == dr)
+                dirs.append(current_path)
+            case ("ls", _):
+                for j in range(len(inp) - i - 1):
+                    curr_file = inp[i + j + 1].split(" ")
+                    if curr_file[0] == "$":
+                        break
+                    size_or_dir, name = curr_file
+                    if size_or_dir == "dir":
+                        current_path.dirs.append(Dir(name, current_path))
+                        continue
+                    current_path.files.append(File(name, int(size_or_dir)))
 
-        for i, cmd in enumerate(self.inp):
-            if cmd[0] != "$":
-                continue
-            cmd, *arg = cmd.replace("$ ", "").split(" ")
-            match cmd, arg:
-                case ("cd", [".."]):
-                    current_path = current_path.parent
-                case ("cd", ["/"]):
-                    current_path = root
-                case ("cd", [dr]):
-                    current_path = next(d for d in current_path.dirs if d.name == dr)
-                    dirs.append(current_path)
-                case ("ls", _):
-                    for j in range(len(self.inp) - i - 1):
-                        curr_file = self.inp[i + j + 1].split(" ")
-                        if curr_file[0] == "$":
-                            break
-                        size_or_dir, name = curr_file
-                        if size_or_dir == "dir":
-                            current_path.dirs.append(Dir(name, current_path))
-                            continue
-                        current_path.files.append(File(name, int(size_or_dir)))
+    res = 0
+    for d in dirs:
+        s = d.get_size()
+        if s <= 100000:
+            res += s
+    target = 30000000 - (70000000 - root.get_size())
 
-        res = 0
-        for d in dirs:
-            s = d.get_size()
-            if s <= 100000:
-                res += s
-        target = 30000000 - (70000000 - root.get_size())
-
-        return res, min([d.get_size() for d in dirs if d.get_size() >= target])
+    return res, min([d.get_size() for d in dirs if d.get_size() >= target])
 
 
 def part1(inp):
-    return Disk(inp).run_commands()[0]
+    return run_commands(inp)[0]
 
 
 def part2(inp):
-    return Disk(inp).run_commands()[1]
+    return run_commands(inp)[1]
 
 
 assert (
