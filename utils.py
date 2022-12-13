@@ -19,6 +19,7 @@ assert (
 
 class AoC:
     def __init__(self, day: int, year: int = datetime.now().year):
+        console.log(f"Solving {day=} {year=}")
         self.day = day
         self.year = year
 
@@ -30,6 +31,9 @@ class AoC:
 
     def get_input(self):
         return get_input(year=self.year, day=self.day)
+
+    def get_input_no_split(self):
+        return get_input(year=self.year, day=self.day, no_split=True)
 
     def submit_p1(self, answer: Any):
         submit(year=self.year, day=self.day, level=1, answer=answer)
